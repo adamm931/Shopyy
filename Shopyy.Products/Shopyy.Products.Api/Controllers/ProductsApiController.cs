@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Shopyy.Products.Application.Queries.GetProducts;
+using System.Threading.Tasks;
 
 namespace Shopyy.Web.Controllers
 {
@@ -6,15 +9,17 @@ namespace Shopyy.Web.Controllers
     [ApiController]
     public class ProductsApiController : ControllerBase
     {
-        public ProductsApiController()
-        {
+        private readonly IMediator _mediator;
 
+        public ProductsApiController(IMediator mediator)
+        {
+            _mediator = mediator;
         }
 
         [HttpPut]
-        public IActionResult Filter()
+        public async Task<IActionResult> Filter()
         {
-            return Ok(new[] { "123", "123" });
+            return Ok(await _mediator.Send(new GetProductsQuery()));
         }
     }
 }

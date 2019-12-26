@@ -39,6 +39,11 @@ namespace Shopyy.Infrastructure.Postgres
             return await _table.FindAsync(id);
         }
 
+        public async Task<IEnumerable<TEntity>> ListAsync()
+        {
+            return await _table.ToListAsync();
+        }
+
         public void Update(TEntity entity)
         {
             _table.Update(entity);

@@ -62,5 +62,18 @@ namespace Shopyy.Infrastructure.Persistance
             var command = (TransactionCommand)(() => Collection.ReplaceOneAsync(document => document.Id.Equals(entity.Id), entity));
             _transaction.AddCommand(command);
         }
+
+        public async Task<IEnumerable<TEntity>> ListAsync()
+        {
+            var items = await Collection.FindAsync(entity => true);
+            var result = new List<TEntity>();
+
+            while (await items.MoveNextAsync())
+            {
+                result.AddRange(items.Current);
+            }
+
+            return result;
+        }
     }
 }

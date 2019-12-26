@@ -9,6 +9,8 @@ namespace Shopyy.Application.Abstractions.Repository
     {
         Task<TEntity> FindAsync(TKey id);
 
+        Task<IEnumerable<TEntity>> ListAsync();
+
         void Add(TEntity entity);
 
         void AddRange(IEnumerable<TEntity> entity);

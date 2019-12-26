@@ -19,6 +19,7 @@ namespace Shopyy.Products.Infrastructure.Configurations
                 .Column(model => model.Name, CommonColumns.Name)
                 .Column(model => model.SerialNumber, Columns.Product.SerialNumber)
                 .Column(model => model.ArticleNumber, Columns.Product.ArticleNumber)
+                .Column(model => model.Price, Columns.Product.Price)
                 .Column(model => model.Description, Columns.Product.Description)
                 .Column(model => model.StockCount, Columns.Product.StockCount);
 

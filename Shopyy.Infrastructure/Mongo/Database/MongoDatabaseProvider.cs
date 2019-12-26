@@ -1,37 +1,34 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Mongo.Client;
 using Shopyy.Infrastructure.Mongo.Database;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shopyy.Infrastructure.Mongo
 {
-    public class MongoDatabaseProvider : IMongoDatabaseProvider
+    public class MongoDatabaseProvider : IMongoDatabaseProvider, IDatabaseCreator
     {
         private readonly IMongoClient _client;
-        private readonly DatabaseOptions _databaseOptions;
+        private readonly MongoDatabaseOptions _databaseOptions;
 
         public MongoDatabaseProvider(
             IMongoClientProvider clientProvider,
-            IOptions<DatabaseOptions> databaseOptions)
+            IOptions<MongoDatabaseOptions> databaseOptions)
         {
             _databaseOptions = databaseOptions.Value;
             _client = clientProvider.Client;
-
-            Database = _client.GetDatabase(_databaseOptions.Name);
         }
 
-        public IMongoDatabase Database { get; }
+        public IMongoDatabase Database => _client.GetDatabase(_databaseOptions.Name);
 
-        private bool? _isCreated;
-        public bool IsCreated => _isCreated ??= HasDatabaseName();
-
-        private bool HasDatabaseName()
+        private async Task<bool> HasDatabaseName()
         {
-            var cursor = _client.ListDatabaseNames();
+            var cursor = await _client.ListDatabaseNamesAsync();
 
-            while (cursor.MoveNext())
+            while (await cursor.MoveNextAsync())
             {
                 if (cursor.Current.Contains(_databaseOptions.Name))
                 {
@@ -40,6 +37,21 @@ namespace Shopyy.Infrastructure.Mongo
             }
 
             return false;
+        }
+
+        public async Task<bool> CreateAsync()
+        {
+            var databaseExists = await HasDatabaseName();
+
+            if (databaseExists)
+            {
+                return false;
+            }
+
+            // this will initialize database when called first time
+            _client.GetDatabase(_databaseOptions.Name);
+
+            return true;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Shopyy.Infrastructure.Mongo.Transaction
             _commands.Add(command);
         }
 
-        public async Task CommitAsync()
+        public async Task SaveAsync()
         {
             if (!_commands.Any())
             {

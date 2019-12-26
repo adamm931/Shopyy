@@ -2,16 +2,8 @@
 
 namespace Shopyy.Common.Guard
 {
-    /// <summary>
-    /// Logic for ensuring that given paramters satifies certain rules
-    /// </summary>
     public class Ensure
     {
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if given argument is null or empty
-        /// </summary>
-        /// <param name="argument"></param>
-        /// <param name="arugmentName"></param>
         public static void NotEmpty(string argument, string arugmentName)
         {
             if (string.IsNullOrEmpty(argument))
@@ -20,11 +12,31 @@ namespace Shopyy.Common.Guard
             }
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNegativeException"/> if given argument is negative number
-        /// </summary>
-        /// <param name="argument"></param>
-        /// <param name="arugmentName"></param>
+        public static void NotEmpty(Guid argument, string arugmentName)
+        {
+            if (argument == Guid.Empty)
+            {
+                throw new ArgumentNullException(arugmentName);
+            }
+        }
+
+        public static void EnumValueDefined<TEnum>(TEnum argument, string arugmentName)
+            where TEnum : struct
+        {
+            if (!Enum.IsDefined(typeof(TEnum), argument))
+            {
+                throw new EnumValueNotDefinedException<TEnum>(argument);
+            }
+        }
+
+        public static void NotNull(object argument, string arugmentName)
+        {
+            if (argument == null)
+            {
+                throw new ArgumentNegativeException(arugmentName);
+            }
+        }
+
         public static void NonNegative(decimal argument, string arugmentName)
         {
             if (argument < 0)

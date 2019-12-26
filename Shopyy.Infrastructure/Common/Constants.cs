@@ -1,7 +1,8 @@
 ﻿namespace Shopyy.Infrastructure.Common
 {
-    public class AppSettings
+    public class CommonColumns
     {
-        public const string MongoDatabaseOptions = "MongoDatabaseOptions";
+        public const string Id = "id";
+        public const string Name = "name";
     }
 }

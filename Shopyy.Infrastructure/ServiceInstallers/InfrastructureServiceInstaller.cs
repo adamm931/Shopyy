@@ -27,7 +27,7 @@ namespace Shopyy.Infrastructure.ServiceInstallers
             services.AddScoped<IDbTableProvider>(service => service.GetRequiredService<TDbContext>());
             services.AddScoped<ISeeder, TSeeder>();
             services.AddScoped<IUnitOfWork>(service => service.GetRequiredService<TDbContext>());
-            services.AddScoped(typeof(IRepository<,>), typeof(PostgresRepository<,>));
+            services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
 
             // services.AddScoped<IMongoTransactionContext, MongoTransactionContext>();
             // services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));

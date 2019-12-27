@@ -1,15 +1,22 @@
-﻿using Shopyy.Domain;
+﻿using Shoppy.Domain.Specification;
+using Shopyy.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shopyy.Application.Abstractions.Repository
 {
     public interface IRepository<TKey, TEntity>
-        where TEntity : IEntity<TKey>
+        where TEntity : class, IEntity<TKey>
     {
         Task<TEntity> FindAsync(TKey id);
 
-        Task<IEnumerable<TEntity>> ListAsync();
+        Task<TEntity> SingleOrDefaultAsync(ISpecification<TEntity> specification);
+
+        Task<bool> AnyAsync(ISpecification<TEntity> specification);
+
+        Task<long> CountAsync(ISpecification<TEntity> specification);
+
+        Task<IEnumerable<TEntity>> FilterAsync(ISpecification<TEntity> specification = null);
 
         void Add(TEntity entity);
 

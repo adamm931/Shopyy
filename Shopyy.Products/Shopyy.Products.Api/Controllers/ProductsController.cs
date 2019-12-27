@@ -7,19 +7,19 @@ namespace Shopyy.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsApiController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ProductsApiController(IMediator mediator)
+        public ProductsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Filter()
+        public async Task<IActionResult> Filter([FromBody] GetProductsQuery query)
         {
-            return Ok(await _mediator.Send(new GetProductsQuery()));
+            return Ok(await _mediator.Send(query ?? new GetProductsQuery()));
         }
     }
 }

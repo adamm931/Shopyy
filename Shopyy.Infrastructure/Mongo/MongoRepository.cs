@@ -1,6 +1,8 @@
 ﻿using MongoDB.Driver;
+using Shoppy.Domain.Specification;
 using Shopyy.Application.Abstractions.Repository;
 using Shopyy.Domain;
+using Shopyy.Infrastructure.Extensions;
 using Shopyy.Infrastructure.Mongo;
 using Shopyy.Infrastructure.Mongo.Transaction;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 namespace Shopyy.Infrastructure.Persistance
 {
     public class MongoRepository<TKey, TEntity> : IRepository<TKey, TEntity>
-        where TEntity : IEntity<TKey>// , IAggregateRoot
+        where TEntity : class, IEntity<TKey>// , IAggregateRoot
     {
         private readonly IMongoTransactionContext _transaction;
         private readonly IMongoDatabaseProvider _databaseProvider;
@@ -39,6 +41,30 @@ namespace Shopyy.Infrastructure.Persistance
             return (await Collection.FindAsync(entity => entity.Id.Equals(id))).SingleOrDefault();
         }
 
+        public async Task<TEntity> SingleOrDefaultAsync(ISpecification<TEntity> specification)
+        {
+            return await specification.ApplyNoSql(Collection)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<bool> AnyAsync(ISpecification<TEntity> specification)
+        {
+            return await specification.ApplyNoSql(Collection)
+                .AnyAsync();
+        }
+
+        public async Task<long> CountAsync(ISpecification<TEntity> specification)
+        {
+            return await specification.ApplyNoSql(Collection)
+                .LongCountAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> FilterAsync(ISpecification<TEntity> specification)
+        {
+            return await specification.ApplyNoSql(Collection)
+                .ToListAsync();
+        }
+
         public void Add(TEntity entity)
         {
             var command = (TransactionCommand)(() => Collection.InsertOneAsync(entity));
@@ -61,19 +87,6 @@ namespace Shopyy.Infrastructure.Persistance
         {
             var command = (TransactionCommand)(() => Collection.ReplaceOneAsync(document => document.Id.Equals(entity.Id), entity));
             _transaction.AddCommand(command);
-        }
-
-        public async Task<IEnumerable<TEntity>> ListAsync()
-        {
-            var items = await Collection.FindAsync(entity => true);
-            var result = new List<TEntity>();
-
-            while (await items.MoveNextAsync())
-            {
-                result.AddRange(items.Current);
-            }
-
-            return result;
         }
     }
 }

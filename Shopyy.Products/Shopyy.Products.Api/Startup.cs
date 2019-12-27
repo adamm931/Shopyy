@@ -3,17 +3,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shopyy.Common.ServiceInstaller.Extensions;
-using Shopyy.Products.Infrastructure;
+using Newtonsoft.Json.Converters;
+using Shopyy.ProductsCatalogue.Api.Extensions;
 using Shopyy.Web.Extensions;
 
 namespace Shopyy
 {
     public class Startup
     {
-        public Startup(
-            IConfiguration configuration,
-            IHostEnvironment environment)
+        public Startup(IHostEnvironment environment)
         {
             Configuration = environment.BuildConfiguration();
             Environment = environment;
@@ -27,7 +25,15 @@ namespace Shopyy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddInstallers(Configuration, typeof(ProductsInfrastructureAssemblyReference));
+            services
+                .AddMvc()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                })
+                ;
+
+            services.InstallServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

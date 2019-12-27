@@ -2,7 +2,7 @@
 
 namespace Shopyy.Products.Application.Models
 {
-    public class ProductVm
+    public class ProductResponse
     {
         public Guid Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace Shopyy.Products.Application.Models
 
         public string ArticleNumber { get; set; }
 
-        public ProductPriceVm Price { get; set; }
+        public ProductPriceResponse Price { get; set; }
 
         public int StockCount { get; set; }
     }

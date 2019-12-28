@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shopyy.Infrastructure.Common;
 using Shopyy.Infrastructure.Extensions;
+using Shopyy.Infrastructure.Options;
 using Shopyy.Infrastructure.Seed;
 using Shopyy.Infrastructure.ServiceInstallers;
 using Shopyy.Products.Application;
@@ -21,6 +23,10 @@ namespace Shopyy.Infrastructure.ServiceIntallers
             services.BindOptions<ProductsCatalogueDatabaseOptions>(
                 configuration,
                 AppSettings.ProductsCatalogueDatabaseOptions);
+
+            services.BindOptions<SeedOptions>(
+                configuration,
+                CommonAppSettings.SeedOptions);
         }
     }
 }

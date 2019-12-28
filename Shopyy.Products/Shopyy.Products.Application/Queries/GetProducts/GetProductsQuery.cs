@@ -25,33 +25,44 @@ namespace Shopyy.Products.Application.Queries.GetProducts
             public async Task<IEnumerable<ProductResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
             {
                 // products
-                var productSpec = ProductSpecification.Create();
+                var productSpec = ProductSpecification.Create()
+                    .IncludeVariations();
 
                 var products = await _context.Products
                     .FilterAsync(productSpec);
 
                 // currencies
                 var currencySpec = CurrencySpecification.Create()
-                        .ForCurrencyCodeType(request.Currency)
-                        .IncludeCurrencyCode();
+                    .ForCurrencyCodeType(request.Currency)
+                    .IncludeCurrencyCode();
 
                 var currency = await _context.Currencies
                     .SingleOrDefaultAsync(currencySpec);
 
-                return products.Select(product => new ProductResponse
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    SerialNumber = product.SerialNumber,
-                    ArticleNumber = product.ArticleNumber,
-                    Price = new ProductPriceResponse
+                // replace this with Auto Mapper
+                return products
+                    .SelectMany(product => product.Variants)
+                    .Select(variant =>
+                    new ProductResponse
                     {
-                        Amount = product.GetPriceForCurrency(currency),
-                        Currnecy = currency.CurrencyCode.Name
-                    },
-                    StockCount = product.StockCount
-                });
+                        Id = variant.ProductId,
+                        Name = variant.Product.Name,
+                        Description = variant.Product.Description,
+                        SerialNumber = variant.Product.SerialNumber,
+                        ArticleNumber = variant.Product.ArticleNumber,
+                        Price = new ProductPriceResponse
+                        {
+                            Amount = variant.GetPriceForCurrency(currency),
+                            Currnecy = currency.CurrencyCode.Name
+                        },
+                        StockCount = variant.StockCount,
+                        Attributes = variant.Attributes.Select(attribute =>
+                        new ProductAttributeResponse
+                        {
+                            Name = attribute.Name,
+                            Value = attribute.Value
+                        }).ToList()
+                    });
             }
         }
     }

@@ -1,31 +1,30 @@
 ﻿using Shopyy.Common.Guard;
 using Shopyy.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace Shopyy.Products.Domain.Entities
 {
     public class Product : IEntity<Guid>
     {
+        private List<ProductVariant> _variants;
+
         public Product(
             string articleNumber,
             string name,
-            string description,
-            decimal price,
-            int stockCount
+            string description
             )
         {
             Ensure.NotEmpty(articleNumber, nameof(articleNumber));
             Ensure.NotEmpty(name, nameof(name));
-            Ensure.NonNegative(price, nameof(price));
-            Ensure.NonNegative(stockCount, nameof(stockCount));
 
             Id = Guid.NewGuid();
 
             ArticleNumber = articleNumber;
             Name = name;
             Description = description;
-            Price = price;
-            StockCount = stockCount;
+
+            _variants = new List<ProductVariant>();
         }
 
         private Product()
@@ -42,13 +41,17 @@ namespace Shopyy.Products.Domain.Entities
 
         public string Description { get; private set; }
 
-        public decimal Price { get; private set; }
-
-        public int StockCount { get; private set; }
-
-        public decimal GetPriceForCurrency(Currency currency)
+        public IReadOnlyCollection<ProductVariant> Variants
         {
-            return Price * currency.Factor;
+            get => _variants.AsReadOnly();
+            set { }
+        }
+
+        public Product AddVariants(params ProductVariant[] variants)
+        {
+            _variants.AddRange(variants);
+
+            return this;
         }
     }
 }

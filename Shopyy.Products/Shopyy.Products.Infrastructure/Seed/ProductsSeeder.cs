@@ -1,4 +1,6 @@
-﻿using Shopyy.Infrastructure.Interfaces;
+﻿using Microsoft.Extensions.Options;
+using Shopyy.Infrastructure.Interfaces;
+using Shopyy.Infrastructure.Options;
 using Shopyy.Products.Application;
 using System.Threading.Tasks;
 
@@ -8,18 +10,22 @@ namespace Shopyy.Infrastructure.Seed
     {
         private readonly IProductsAppContext _productsContext;
         private readonly IDatabaseCreator _databaseCreator;
+        private readonly IOptions<SeedOptions> _seedOptions;
 
         public ProductsSeeder(
             IProductsAppContext productsContext,
-            IDatabaseCreator databaseInitializer)
+            IDatabaseCreator databaseInitializer,
+            IOptions<SeedOptions> seedOptions)
         {
             _productsContext = productsContext;
             _databaseCreator = databaseInitializer;
+            _seedOptions = seedOptions;
         }
 
         public async Task SeedAsync()
         {
-            var isCreated = await _databaseCreator.CreateAsync();
+            var recreate = _seedOptions.Value.Force;
+            var isCreated = await _databaseCreator.CreateAsync(recreate);
 
             if (!isCreated)
             {

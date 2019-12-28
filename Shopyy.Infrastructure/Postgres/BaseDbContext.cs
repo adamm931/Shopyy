@@ -13,8 +13,13 @@ namespace Shopyy.Infrastructure.Postgres
             await SaveChangesAsync();
         }
 
-        public async Task<bool> CreateAsync()
+        public async Task<bool> CreateAsync(bool recreate = false)
         {
+            if (recreate)
+            {
+                await Database.EnsureDeletedAsync();
+            }
+
             return await Database.EnsureCreatedAsync();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shopyy.Products.Application.Models
 {
@@ -13,6 +14,8 @@ namespace Shopyy.Products.Application.Models
         public long SerialNumber { get; set; }
 
         public string ArticleNumber { get; set; }
+
+        public IEnumerable<ProductAttributeResponse> Attributes { get; set; }
 
         public ProductPriceResponse Price { get; set; }
 

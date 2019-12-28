@@ -12,16 +12,12 @@ namespace Shopyy.Products.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable(Tables.Products);
-
-            builder
+            builder.ToTable(Tables.Products)
                 .Column(model => model.Id, CommonColumns.Id)
                 .Column(model => model.Name, CommonColumns.Name)
                 .Column(model => model.SerialNumber, Columns.Product.SerialNumber)
                 .Column(model => model.ArticleNumber, Columns.Product.ArticleNumber)
-                .Column(model => model.Price, Columns.Product.Price)
-                .Column(model => model.Description, Columns.Product.Description)
-                .Column(model => model.StockCount, Columns.Product.StockCount);
+                .Column(model => model.Description, Columns.Product.Description);
 
             builder.Property(model => model.SerialNumber)
                 .HasDefaultValueSql($"nextval('{Sequnces.ProductSerialNumber}')")

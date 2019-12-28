@@ -16,9 +16,9 @@ namespace Shopyy.Products.Infrastructure.Configurations
 
             builder
                 .Column(model => model.Id, CommonColumns.Id)
-                .Column(model => model.Description, Columns.Curreny.Description)
-                .Column(model => model.Factor, Columns.Curreny.Factor)
-                .Column(model => model.CurrnecyCodeTypeId, Columns.Curreny.CurrencyCodeId);
+                .Column(model => model.Description, Columns.Currency.Description)
+                .Column(model => model.Factor, Columns.Currency.Factor)
+                .Column(model => model.CurrnecyCodeTypeId, Columns.Currency.CurrencyCodeId);
 
             builder.HasOne(model => model.CurrencyCode)
                 .WithMany(code => code.Currencies)

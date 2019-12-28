@@ -4,6 +4,6 @@ namespace Shopyy.Infrastructure.Interfaces
 {
     public interface IDatabaseCreator
     {
-        public Task<bool> CreateAsync();
+        public Task<bool> CreateAsync(bool recreate = false);
     }
 }

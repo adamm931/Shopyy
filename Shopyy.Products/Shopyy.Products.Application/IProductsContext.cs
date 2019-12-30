@@ -11,6 +11,8 @@ namespace Shopyy.Products.Application
 
         IRepository<CurrnecyCodeTypeId, CurrencyCode> CurrencyCodes { get; }
 
+        IRepository<ProductAttributeTypeId, ProductAttributeType> ProductAttributeTypes { get; }
+
         IRepository<Guid, Currency> Currencies { get; }
     }
 }

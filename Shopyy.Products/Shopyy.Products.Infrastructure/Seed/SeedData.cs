@@ -1,6 +1,7 @@
 ﻿using Shopyy.Domain;
 using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Enumerations;
+using Shopyy.Products.Domain.Factories.Products;
 using System;
 using System.Collections.Generic;
 
@@ -10,80 +11,96 @@ namespace Shopyy.Infrastructure.Seed
     {
         public static IEnumerable<Product> GetProducts()
         {
-            yield return new Product("A4-Tech-Mouse-1", "A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI")
-                .AddVariants(
-                new ProductVariant(1200, 5)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "black"),
-                        new ProductAttribute("Size", "large")
-                        ),
-                new ProductVariant(1400, 15)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "red"),
-                        new ProductAttribute("Size", "small")
-                        )
-                    );
+            yield return new Product("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI")
+                .AddVariants(new[]
+                {
+                    new ProductVariant(1200, 5)
+                        .AddAttributes(new[]
+                        {
+                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xxl")
+                        }),
+                    new ProductVariant(1400, 15)
+                        .AddAttributes(new[]
+                        {
+                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "s")
+                        })
+                });
 
-            yield return new Product("A4-Tech-Mouse-2", "A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI")
-                .AddVariants(
-                new ProductVariant(1300, 7)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "green"),
-                        new ProductAttribute("Size", "large")
-                        ),
-                new ProductVariant(1500, 17)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "blue"),
-                        new ProductAttribute("Size", "large")
-                        )
-                    );
+            yield return new Product("A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI")
+                .AddVariants(new[]
+                {
+                    new ProductVariant(1300, 7)
+                        .AddAttributes(new[]
+                        {
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "green"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
+                        }),
+                    new ProductVariant(1500, 17)
+                        .AddAttributes(new[] {
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "blue"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color,"l")
+                        })
+                });
 
-            yield return new Product("A4-Tech-Mouse-3", "A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI")
-                .AddVariants(
+            yield return new Product("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI")
+                .AddVariants(new[] {
                 new ProductVariant(1400, 18)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "black"),
-                        new ProductAttribute("Size", "large")
-                        ),
+                    .AddAttributes(new [] {
+                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
+                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
+                        }),
                 new ProductVariant(1850, 22)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "cyan"),
-                        new ProductAttribute("Size", "medium")
-                        )
-                    );
+                    .AddAttributes(new [] {
+                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "cyan"),
+                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "m")
+                        })
+                    });
 
-            yield return new Product("A4-Tech-Mouse-4", "A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI")
-                .AddVariants(
-                new ProductVariant(1525, 65)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "black"),
-                        new ProductAttribute("Size", "large")
-                        ),
-                new ProductVariant(1900, 255)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "red"),
-                        new ProductAttribute("Size", "small")
-                        )
-                    );
+            yield return new Product("A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI")
+                .AddVariants(new[]
+                {
+                    new ProductVariant(1525, 65)
+                        .AddAttributes(new[]
+                        {
+                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
+                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
+                        }),
+                    new ProductVariant(1900, 255)
+                        .AddAttributes(new[]
+                        {
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "s")
+                        })
+                });
 
-            yield return new Product("A4-Tech-Mouse-5", "A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI")
-                .AddVariants(
-                new ProductVariant(2020, 115)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "dark gray"),
-                        new ProductAttribute("Size", "extra large")
-                        ),
-                new ProductVariant(2400, 135)
-                    .AddAttribute(
-                        new ProductAttribute("Color", "light blue"),
-                        new ProductAttribute("Size", "extra small")
-                        )
-                    );
+            yield return new Product("A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI")
+                .AddVariants(new[]
+                {
+                    new ProductVariant(2020, 115)
+                        .AddAttributes(new []
+                        {
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xl")
+                        }),
+                    new ProductVariant(2400, 135)
+                        .AddAttributes(new []
+                        {
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "light blue"),
+                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xs")
+                        })
+                });
         }
 
         public static IEnumerable<CurrencyCode> GetCurrencyCodes()
         {
             return GetEnumerationEntites<CurrencyCode, CurrnecyCodeTypeId>();
+        }
+
+        public static IEnumerable<ProductAttributeType> GetProductAttributeTypes()
+        {
+            return GetEnumerationEntites<ProductAttributeType, ProductAttributeTypeId>();
         }
 
         public static IEnumerable<Currency> GetCurrencies()

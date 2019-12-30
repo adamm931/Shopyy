@@ -24,7 +24,7 @@ namespace Shopyy.Infrastructure.Seed
 
         public async Task SeedAsync()
         {
-            var recreate = _seedOptions.Value.Force;
+            var recreate = _seedOptions.Value.Recreate;
             var isCreated = await _databaseCreator.CreateAsync(recreate);
 
             if (!isCreated)
@@ -32,13 +32,10 @@ namespace Shopyy.Infrastructure.Seed
                 return;
             }
 
-            var products = SeederData.GetProducts();
-            var currencies = SeederData.GetCurrencies();
-            var currencyCodes = SeederData.GetCurrencyCodes();
-
-            _productsContext.Products.AddRange(products);
-            _productsContext.Currencies.AddRange(currencies);
-            _productsContext.CurrencyCodes.AddRange(currencyCodes);
+            _productsContext.Products.AddRange(SeederData.GetProducts());
+            _productsContext.Currencies.AddRange(SeederData.GetCurrencies());
+            _productsContext.CurrencyCodes.AddRange(SeederData.GetCurrencyCodes());
+            _productsContext.ProductAttributeTypes.AddRange(SeederData.GetProductAttributeTypes());
 
             await _productsContext.Products.UnitOfWork.SaveAsync();
         }

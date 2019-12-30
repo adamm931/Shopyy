@@ -28,6 +28,8 @@ namespace Shopyy.Products.Domain.Entities
 
         public Guid ProductId { get; private set; }
 
+        public string Sku { get; private set; }
+
         public decimal Price { get; private set; }
 
         public int StockCount { get; private set; }
@@ -43,7 +45,7 @@ namespace Shopyy.Products.Domain.Entities
             return Price * currency.Factor;
         }
 
-        public ProductVariant AddAttribute(params ProductAttribute[] attributes)
+        public ProductVariant AddAttributes(IEnumerable<ProductAttribute> attributes)
         {
             _attributes.AddRange(attributes);
 

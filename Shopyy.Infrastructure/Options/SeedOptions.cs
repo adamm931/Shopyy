@@ -2,6 +2,6 @@
 {
     public class SeedOptions
     {
-        public bool Force { get; set; }
+        public bool Recreate { get; set; }
     }
 }

@@ -10,7 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Commands\Products\Update\" />
+    <Folder Include="Models\Response\" />
     <Folder Include="Validation\" />
   </ItemGroup>
 

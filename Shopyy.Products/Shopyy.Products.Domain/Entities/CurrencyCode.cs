@@ -6,8 +6,8 @@ namespace Shopyy.Products.Domain.Entities
 {
     public class CurrencyCode : EnumEntity<CurrnecyCodeTypeId>
     {
-        public CurrencyCode(CurrnecyCodeTypeId @enum)
-            : base(@enum)
+        public CurrencyCode(CurrnecyCodeTypeId code)
+            : base(code)
         {
         }
 

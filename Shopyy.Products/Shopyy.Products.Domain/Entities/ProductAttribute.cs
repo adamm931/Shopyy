@@ -1,30 +1,58 @@
 ﻿using Shopyy.Common.Guard;
 using Shopyy.Domain;
+using Shopyy.Products.Domain.Enumerations;
 using System;
 
 namespace Shopyy.Products.Domain.Entities
 {
-    public class ProductAttribute : IEntity<Guid>
+    public abstract class ProductAttribute : IEntity<Guid>
     {
-        public ProductAttribute(string name, string value)
+        protected ProductAttribute(ProductAttributeTypeId attributeTypeId, string value)
         {
-            Ensure.NotEmpty(name, nameof(name));
+            Ensure.EnumValueDefined(attributeTypeId, nameof(attributeTypeId));
             Ensure.NotEmpty(value, nameof(value));
 
             Id = Guid.NewGuid();
 
-            Name = name;
+            AttributeTypeId = attributeTypeId;
             Value = value;
         }
 
-        public Guid Id { get; private set; }
+        protected ProductAttribute()
+        {
+        }
 
-        public string Name { get; private set; }
+        public Guid Id { get; private set; }
 
         public string Value { get; private set; }
 
         public ProductVariant Variant { get; private set; }
 
         public Guid VariantId { get; private set; }
+
+        public ProductAttributeType AttributeType { get; private set; }
+
+        public ProductAttributeTypeId AttributeTypeId { get; private set; }
+    }
+
+    public class ColorProductAttribute : ProductAttribute
+    {
+        public ColorProductAttribute(string value) : base(ProductAttributeTypeId.Color, value)
+        {
+        }
+    }
+
+    public class BrandProductAttribute : ProductAttribute
+    {
+        public BrandProductAttribute(string value) : base(ProductAttributeTypeId.Brand, value)
+        {
+        }
+    }
+
+    public class SizeProductAttribute : ProductAttribute
+    {
+        public SizeProductAttribute(string value) : base(ProductAttributeTypeId.Size, value)
+        {
+        }
     }
 }

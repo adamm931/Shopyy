@@ -22,6 +22,8 @@ namespace Shopyy.Products.Infrastructure
 
         public DbSet<CurrencyCode> CurrencyCodes { get; set; }
 
+        public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

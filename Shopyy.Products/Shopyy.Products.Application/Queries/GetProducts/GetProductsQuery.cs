@@ -49,7 +49,6 @@ namespace Shopyy.Products.Application.Queries.GetProducts
                         Name = variant.Product.Name,
                         Description = variant.Product.Description,
                         SerialNumber = variant.Product.SerialNumber,
-                        ArticleNumber = variant.Product.ArticleNumber,
                         Price = new ProductPriceResponse
                         {
                             Amount = variant.GetPriceForCurrency(currency),
@@ -59,7 +58,7 @@ namespace Shopyy.Products.Application.Queries.GetProducts
                         Attributes = variant.Attributes.Select(attribute =>
                         new ProductAttributeResponse
                         {
-                            Name = attribute.Name,
+                            Name = attribute.AttributeTypeId.ToString(),
                             Value = attribute.Value
                         }).ToList()
                     });

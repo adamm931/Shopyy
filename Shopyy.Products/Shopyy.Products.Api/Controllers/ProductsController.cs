@@ -21,5 +21,11 @@ namespace Shopyy.Web.Controllers
         {
             return Ok(await _mediator.Send(query ?? new GetProductsQuery()));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] GetProductsQuery command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
     }
 }

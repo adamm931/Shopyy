@@ -9,18 +9,12 @@ namespace Shopyy.Products.Domain.Entities
     {
         private List<ProductVariant> _variants;
 
-        public Product(
-            string articleNumber,
-            string name,
-            string description
-            )
+        public Product(string name, string description)
         {
-            Ensure.NotEmpty(articleNumber, nameof(articleNumber));
             Ensure.NotEmpty(name, nameof(name));
 
             Id = Guid.NewGuid();
 
-            ArticleNumber = articleNumber;
             Name = name;
             Description = description;
 
@@ -35,8 +29,6 @@ namespace Shopyy.Products.Domain.Entities
 
         public long SerialNumber { get; private set; }
 
-        public string ArticleNumber { get; private set; }
-
         public string Name { get; private set; }
 
         public string Description { get; private set; }
@@ -47,8 +39,23 @@ namespace Shopyy.Products.Domain.Entities
             set { }
         }
 
-        public Product AddVariants(params ProductVariant[] variants)
+        public Product AddVariants(IEnumerable<ProductVariant> variants)
         {
+            //foreach (var variant in variants)
+            //{
+            //    var existingVariant = _variants.SingleOrDefault(productVaraint => productVaraint.Id == variant.Id);
+
+            //    if (existingVariant is null)
+            //    {
+            //        _variants.Add(variant);
+            //    }
+
+            //    else
+            //    {
+            //        existingVariant = variant;
+            //    }
+            //}
+
             _variants.AddRange(variants);
 
             return this;

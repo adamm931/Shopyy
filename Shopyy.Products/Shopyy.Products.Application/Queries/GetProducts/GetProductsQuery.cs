@@ -1,5 +1,8 @@
-﻿using MediatR;
-using Shopyy.Products.Application.Models;
+﻿using AutoMapper;
+using MediatR;
+using Shoppy.Application.Mapping.Extensions;
+using Shopyy.Products.Application.Common;
+using Shopyy.Products.Application.Models.Response;
 using Shopyy.Products.Domain.Enumerations;
 using Shopyy.Products.Domain.Specifications;
 using System.Collections.Generic;
@@ -16,10 +19,12 @@ namespace Shopyy.Products.Application.Queries.GetProducts
         public class Handler : IRequestHandler<GetProductsQuery, IEnumerable<ProductResponse>>
         {
             private readonly IProductsAppContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(IProductsAppContext context)
+            public Handler(IProductsAppContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
             public async Task<IEnumerable<ProductResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
@@ -39,29 +44,10 @@ namespace Shopyy.Products.Application.Queries.GetProducts
                 var currency = await _context.Currencies
                     .SingleOrDefaultAsync(currencySpec);
 
-                // replace this with Auto Mapper
-                return products
-                    .SelectMany(product => product.Variants)
-                    .Select(variant =>
-                    new ProductResponse
-                    {
-                        Id = variant.ProductId,
-                        Name = variant.Product.Name,
-                        Description = variant.Product.Description,
-                        SerialNumber = variant.Product.SerialNumber,
-                        Price = new ProductPriceResponse
-                        {
-                            Amount = variant.GetPriceForCurrency(currency),
-                            Currnecy = currency.CurrencyCode.Name
-                        },
-                        StockCount = variant.StockCount,
-                        Attributes = variant.Attributes.Select(attribute =>
-                        new ProductAttributeResponse
-                        {
-                            Name = attribute.AttributeTypeId.ToString(),
-                            Value = attribute.Value
-                        }).ToList()
-                    });
+                var variants = products.SelectMany(product => product.Variants);
+
+                return _mapper.Map<IEnumerable<ProductResponse>>(
+                    variants, opts => opts.SetItem(AutoMapperParams.Currency, currency));
             }
         }
     }

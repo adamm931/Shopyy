@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Postgres;
 using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Infrastructure.Common;
@@ -11,7 +12,10 @@ namespace Shopyy.Products.Infrastructure
     {
         private readonly IOptions<ProductsCatalogueDatabaseOptions> _options;
 
-        public ProductsDbContext(IOptions<ProductsCatalogueDatabaseOptions> options)
+        public ProductsDbContext(
+            IOptions<ProductsCatalogueDatabaseOptions> options,
+            IEnumerationsProvider enumerationsProvider)
+            : base(enumerationsProvider)
         {
             _options = options;
         }

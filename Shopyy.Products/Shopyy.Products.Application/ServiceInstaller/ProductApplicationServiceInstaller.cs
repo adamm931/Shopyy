@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shopyy.Common.ServiceInstaller;
 
@@ -9,6 +10,7 @@ namespace Shopyy.Products.Application.ServiceInstaller
         public void InstallService(IServiceCollection services)
         {
             services.AddMediatR(typeof(ProductApplicationServiceInstaller).Assembly);
+            services.AddAutoMapper(typeof(ProductApplicationServiceInstaller).Assembly);
         }
     }
 }

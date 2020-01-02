@@ -10,15 +10,20 @@ namespace Shopyy.Infrastructure.Seed
     {
         private readonly IProductsAppContext _productsContext;
         private readonly IDatabaseCreator _databaseCreator;
+        private readonly IEnumerationsSeeder _enumerationsSeeder;
         private readonly IOptions<SeedOptions> _seedOptions;
 
         public ProductsSeeder(
             IProductsAppContext productsContext,
             IDatabaseCreator databaseInitializer,
-            IOptions<SeedOptions> seedOptions)
+            IEnumerationsSeeder enumerationsSeeder,
+            IOptions<SeedOptions> seedOptions
+            )
         {
             _productsContext = productsContext;
             _databaseCreator = databaseInitializer;
+            _enumerationsSeeder = enumerationsSeeder;
+
             _seedOptions = seedOptions;
         }
 
@@ -34,8 +39,8 @@ namespace Shopyy.Infrastructure.Seed
 
             _productsContext.Products.AddRange(SeederData.GetProducts());
             _productsContext.Currencies.AddRange(SeederData.GetCurrencies());
-            _productsContext.CurrencyCodes.AddRange(SeederData.GetCurrencyCodes());
-            _productsContext.ProductAttributeTypes.AddRange(SeederData.GetProductAttributeTypes());
+
+            _enumerationsSeeder.SeedEnumerations();
 
             await _productsContext.Products.UnitOfWork.SaveAsync();
         }

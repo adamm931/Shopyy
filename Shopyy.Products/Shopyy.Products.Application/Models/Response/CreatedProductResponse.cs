@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shopyy.Products.Application.Models
+namespace Shopyy.Products.Application.Models.Response
 {
     public class CreatedProductResponse
     {

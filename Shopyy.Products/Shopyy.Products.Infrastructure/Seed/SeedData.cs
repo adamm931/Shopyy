@@ -46,6 +46,7 @@ namespace Shopyy.Infrastructure.Seed
 
             yield return new Product("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI")
                 .AddVariants(new[] {
+
                 new ProductVariant(1400, 18)
                     .AddAttributes(new [] {
                         ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),

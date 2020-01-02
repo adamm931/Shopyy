@@ -4,6 +4,7 @@ using Shopyy.Application.Abstractions.Repository;
 using Shopyy.Common.ServiceInstaller;
 using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Postgres;
+using Shopyy.Infrastructure.Seed;
 
 namespace Shopyy.Infrastructure.ServiceInstallers
 {
@@ -25,6 +26,7 @@ namespace Shopyy.Infrastructure.ServiceInstallers
             // scoped
             services.AddScoped<IDatabaseCreator>(service => service.GetRequiredService<TDbContext>());
             services.AddScoped<IDbTableProvider>(service => service.GetRequiredService<TDbContext>());
+            services.AddScoped<IEnumerationsSeeder>(service => service.GetRequiredService<TDbContext>());
             services.AddScoped<ISeeder, TSeeder>();
             services.AddScoped<IUnitOfWork>(service => service.GetRequiredService<TDbContext>());
             services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));

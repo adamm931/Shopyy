@@ -35,5 +35,10 @@ namespace Shopyy.Products.Domain.Entities
         public Currency()
         {
         }
+
+        public override string ToString()
+        {
+            return CurrnecyCodeTypeId.ToString();
+        }
     }
 }

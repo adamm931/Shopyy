@@ -2,6 +2,7 @@
 using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Options;
 using Shopyy.Products.Application;
+using Shopyy.Products.Domain.Interfacaes;
 using System.Threading.Tasks;
 
 namespace Shopyy.Infrastructure.Seed
@@ -12,19 +13,21 @@ namespace Shopyy.Infrastructure.Seed
         private readonly IDatabaseCreator _databaseCreator;
         private readonly IEnumerationsSeeder _enumerationsSeeder;
         private readonly IOptions<SeedOptions> _seedOptions;
+        private readonly ISkuProvider _skuProvider;
 
         public ProductsSeeder(
             IProductsAppContext productsContext,
             IDatabaseCreator databaseInitializer,
             IEnumerationsSeeder enumerationsSeeder,
-            IOptions<SeedOptions> seedOptions
+            IOptions<SeedOptions> seedOptions,
+            ISkuProvider skuProvider
             )
         {
             _productsContext = productsContext;
             _databaseCreator = databaseInitializer;
             _enumerationsSeeder = enumerationsSeeder;
-
             _seedOptions = seedOptions;
+            _skuProvider = skuProvider;
         }
 
         public async Task SeedAsync()
@@ -37,7 +40,7 @@ namespace Shopyy.Infrastructure.Seed
                 return;
             }
 
-            _productsContext.Products.AddRange(SeederData.GetProducts());
+            _productsContext.Products.AddRange(SeederData.GetProducts(_skuProvider));
             _productsContext.Currencies.AddRange(SeederData.GetCurrencies());
 
             _enumerationsSeeder.SeedEnumerations();

@@ -1,107 +1,98 @@
-﻿using Shopyy.Domain;
-using Shopyy.Products.Domain.Entities;
+﻿using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Enumerations;
-using Shopyy.Products.Domain.Factories.Products;
-using System;
+using Shopyy.Products.Domain.Interfacaes;
 using System.Collections.Generic;
 
 namespace Shopyy.Infrastructure.Seed
 {
     public class SeederData
     {
-        public static IEnumerable<Product> GetProducts()
+        public static IEnumerable<Product> GetProducts(ISkuProvider skuProvider)
         {
-            yield return new Product("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI")
-                .AddVariants(new[]
-                {
-                    new ProductVariant(1200, 5)
-                        .AddAttributes(new[]
-                        {
-                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xxl")
-                        }),
-                    new ProductVariant(1400, 15)
-                        .AddAttributes(new[]
-                        {
-                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "s")
-                        })
-                });
+            // 1
+            var p1 = new Product("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI");
 
-            yield return new Product("A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI")
-                .AddVariants(new[]
-                {
-                    new ProductVariant(1300, 7)
-                        .AddAttributes(new[]
-                        {
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "green"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
-                        }),
-                    new ProductVariant(1500, 17)
-                        .AddAttributes(new[] {
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "blue"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color,"l")
-                        })
-                });
+            var v11 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Red)
+                        .AddSize(SizeTypeId.Medium);
 
-            yield return new Product("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI")
-                .AddVariants(new[] {
+            var v12 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Green)
+                        .AddSize(SizeTypeId.ExtraLarge);
 
-                new ProductVariant(1400, 18)
-                    .AddAttributes(new [] {
-                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
-                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
-                        }),
-                new ProductVariant(1850, 22)
-                    .AddAttributes(new [] {
-                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "cyan"),
-                        ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "m")
-                        })
-                    });
+            v11.SetSku(skuProvider.GenerateSku(p1, v11).Result);
+            v12.SetSku(skuProvider.GenerateSku(p1, v12).Result);
 
-            yield return new Product("A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI")
-                .AddVariants(new[]
-                {
-                    new ProductVariant(1525, 65)
-                        .AddAttributes(new[]
-                        {
-                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "black"),
-                           ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "l")
-                        }),
-                    new ProductVariant(1900, 255)
-                        .AddAttributes(new[]
-                        {
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "s")
-                        })
-                });
+            p1.AddVariants(new[] { v11, v12 });
 
-            yield return new Product("A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI")
-                .AddVariants(new[]
-                {
-                    new ProductVariant(2020, 115)
-                        .AddAttributes(new []
-                        {
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "red"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xl")
-                        }),
-                    new ProductVariant(2400, 135)
-                        .AddAttributes(new []
-                        {
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Color, "light blue"),
-                            ProductAttributeFactory.ByType(ProductAttributeTypeId.Size, "xs")
-                        })
-                });
-        }
+            // 2
+            var p2 = new Product("A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI");
 
-        public static IEnumerable<CurrencyCode> GetCurrencyCodes()
-        {
-            return GetEnumerationEntites<CurrencyCode, CurrnecyCodeTypeId>();
-        }
+            var v21 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Green)
+                        .AddSize(SizeTypeId.ExtraLarge);
 
-        public static IEnumerable<ProductAttributeType> GetProductAttributeTypes()
-        {
-            return GetEnumerationEntites<ProductAttributeType, ProductAttributeTypeId>();
+            var v22 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.White)
+                        .AddSize(SizeTypeId.ExtraLarge);
+
+            v21.SetSku(skuProvider.GenerateSku(p2, v21).Result);
+            v22.SetSku(skuProvider.GenerateSku(p2, v22).Result);
+
+            p2.AddVariants(new[] { v21, v22 });
+
+            // 3
+            var p3 = new Product("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI");
+
+            var v31 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Green)
+                        .AddBrand(BrandTypeId.A4Tech)
+                        .AddSize(SizeTypeId.ExtraLarge);
+
+            var v32 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Blue)
+                        .AddSize(SizeTypeId.ExtraLarge)
+                        .AddBrand(BrandTypeId.Logitech);
+
+            v31.SetSku(skuProvider.GenerateSku(p3, v31).Result);
+            v32.SetSku(skuProvider.GenerateSku(p3, v32).Result);
+
+            p3.AddVariants(new[] { v31, v32 });
+
+            //4
+            var p4 = new Product("A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI");
+
+            var v41 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Red)
+                        .AddSize(SizeTypeId.Medium);
+
+            var v42 = new ProductVariant(1900, 255)
+                        .AddColor(ColorTypeId.Black)
+                        .AddSize(SizeTypeId.Small);
+
+            v41.SetSku(skuProvider.GenerateSku(p4, v41).Result);
+            v42.SetSku(skuProvider.GenerateSku(p4, v42).Result);
+
+            p4.AddVariants(new[] { v41, v42 });
+
+            // 5
+            var p5 = new Product("A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI");
+
+            var v51 = new ProductVariant(2020, 115)
+                        .AddColor(ColorTypeId.White)
+                        .AddSize(SizeTypeId.Large);
+
+            var v52 = new ProductVariant(2400, 135)
+                        .AddColor(ColorTypeId.Cyan)
+                        .AddBrand(BrandTypeId.Genius)
+                        .AddSize(SizeTypeId.Medium);
+
+            v51.SetSku(skuProvider.GenerateSku(p5, v51).Result);
+            v52.SetSku(skuProvider.GenerateSku(p5, v52).Result);
+
+            p5.AddVariants(new[] { v51, v52 });
+
+            return new[] { p1, p2, p3, p4, p5 };
         }
 
         public static IEnumerable<Currency> GetCurrencies()
@@ -112,16 +103,6 @@ namespace Shopyy.Infrastructure.Seed
                 new Currency(1.10m, CurrnecyCodeTypeId.USD, "Dollars"),
                 new Currency(118.55m, CurrnecyCodeTypeId.RSD, "Dinars")
             };
-        }
-
-        private static IEnumerable<TEnumEntity> GetEnumerationEntites<TEnumEntity, TEnum>()
-            where TEnumEntity : EnumEntity<TEnum>
-            where TEnum : struct
-        {
-            foreach (var value in Enum.GetValues(typeof(TEnum)))
-            {
-                yield return Activator.CreateInstance(typeof(TEnumEntity), value) as TEnumEntity;
-            }
         }
     }
 }

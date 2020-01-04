@@ -1,5 +1,7 @@
 ﻿using Shoppy.Domain.Specification;
 using Shopyy.Products.Domain.Entities;
+using Shopyy.Products.Domain.ValueObjects;
+using System.Linq;
 
 namespace Shopyy.Products.Domain.Specifications
 {
@@ -11,6 +13,15 @@ namespace Shopyy.Products.Domain.Specifications
         {
             AddInclude(nameof(Product.Variants));
             AddInclude($"{nameof(Product.Variants)}.{nameof(ProductVariant.Attributes)}");
+
+            return this;
+        }
+
+        public ProductSpecification ForSku(Sku sku)
+        {
+            AddAnd(product => product
+                .Variants
+                .Any(variation => variation.Sku.Value == sku.Value));
 
             return this;
         }

@@ -6,6 +6,10 @@ namespace Shopyy.Products.Application.Models.Request
     {
         public ProductAttributeTypeId Type { get; set; }
 
-        public string Value { get; set; }
+        public BrandTypeId? Brand { get; set; }
+
+        public ColorTypeId? Color { get; set; }
+
+        public SizeTypeId? Size { get; set; }
     }
 }

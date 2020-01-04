@@ -1,48 +1,78 @@
 ﻿using MediatR;
 using Shopyy.Products.Application.Models.Request;
+using Shopyy.Products.Application.Models.Response;
 using Shopyy.Products.Domain.Entities;
-using Shopyy.Products.Domain.Factories.Products;
-using System;
+using Shopyy.Products.Domain.Enumerations;
+using Shopyy.Products.Domain.Interfacaes;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shopyy.Products.Application.Commands.Products.Create
 {
-    public class CreateProductCommand : IRequest<Guid>
+    public class CreateProductCommand : IRequest<CreatedProductResponse>
     {
+        #region Model
+
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public IEnumerable<ProductVariantRequest> Variants { get; set; }
 
-        public class Handler : IRequestHandler<CreateProductCommand, Guid>
+        #endregion
+
+        #region Handler
+
+        public class Handler : IRequestHandler<CreateProductCommand, CreatedProductResponse>
         {
             private readonly IProductsAppContext _context;
+            private readonly ISkuProvider _skuProvider;
 
-            public Handler(IProductsAppContext context)
+            public Handler(IProductsAppContext context, ISkuProvider skuProvider)
             {
                 _context = context;
+                _skuProvider = skuProvider;
             }
 
-            public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+            public async Task<CreatedProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
                 var product = new Product(request.Name, request.Description);
 
-                var variants = request.Variants
-                    .Select(varaint => new ProductVariant(varaint.Price, varaint.StockCount)
-                        .AddAttributes(varaint.Attributes
-                            .Select(attr => ProductAttributeFactory.ByType(attr.Type, attr.Value))));
+                foreach (var variantRequest in request.Variants)
+                {
+                    var variant = new ProductVariant(variantRequest.Price, variantRequest.StockCount);
 
-                product.AddVariants(variants);
+                    foreach (var attributeRequest in variantRequest.Attributes)
+                    {
+                        // TODO: move this to factory
+                        variant = attributeRequest.Type switch
+                        {
+                            ProductAttributeTypeId.Brand => variant.AddBrand(attributeRequest.Brand.Value),
+                            ProductAttributeTypeId.Color => variant.AddColor(attributeRequest.Color.Value),
+                            ProductAttributeTypeId.Size => variant.AddSize(attributeRequest.Size.Value),
+                            _ => throw new System.Exception()
+                        };
+                    }
+
+                    var sku = await _skuProvider.GenerateSku(product, variant);
+
+                    variant.SetSku(sku);
+
+                    product.AddVariant(variant);
+                }
 
                 _context.Products.Add(product);
+
                 await _context.Products.UnitOfWork.SaveAsync();
 
-                return product.Id;
+                return new CreatedProductResponse
+                {
+                    Id = product.Id
+                };
             }
         }
+
+        #endregion
     }
 }

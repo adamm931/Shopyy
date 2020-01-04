@@ -39,23 +39,13 @@ namespace Shopyy.Products.Domain.Entities
             set { }
         }
 
+        public void AddVariant(ProductVariant variant)
+        {
+            _variants.Add(variant);
+        }
+
         public Product AddVariants(IEnumerable<ProductVariant> variants)
         {
-            //foreach (var variant in variants)
-            //{
-            //    var existingVariant = _variants.SingleOrDefault(productVaraint => productVaraint.Id == variant.Id);
-
-            //    if (existingVariant is null)
-            //    {
-            //        _variants.Add(variant);
-            //    }
-
-            //    else
-            //    {
-            //        existingVariant = variant;
-            //    }
-            //}
-
             _variants.AddRange(variants);
 
             return this;

@@ -13,7 +13,10 @@ namespace Shopyy.Products.Infrastructure.Seed
             return new Dictionary<Type, Type>
             {
                 { typeof(CurrnecyCodeTypeId), typeof(CurrencyCode) },
-                { typeof(ProductAttributeTypeId), typeof(ProductAttributeType) }
+                { typeof(ProductAttributeTypeId), typeof(ProductAttributeType) },
+                { typeof(BrandTypeId), typeof(BrandType) },
+                { typeof(ColorTypeId), typeof(ColorType) },
+                { typeof(SizeTypeId), typeof(SizeType) },
             };
         }
     }

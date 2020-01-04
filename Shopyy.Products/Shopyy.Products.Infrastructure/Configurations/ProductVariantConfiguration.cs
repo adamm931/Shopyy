@@ -14,9 +14,22 @@ namespace Shopyy.Products.Infrastructure.Configurations
             builder.ToTable(Tables.ProductVariants)
                 .Column(model => model.Id, CommonColumns.Id)
                 .Column(model => model.Price, Columns.ProductVariant.Price)
-                .Column(model => model.Sku, Columns.ProductVariant.Sku)
                 .Column(model => model.StockCount, Columns.ProductVariant.StockCount)
                 .Column(model => model.ProductId, Columns.ProductVariant.ProductId);
+
+            builder
+                .OwnsOne(model => model.Sku, options =>
+                {
+                    options
+                        .Property(sku => sku.Value)
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnName(Columns.ProductVariant.Sku);
+
+                    //options.HasIndex(sku => sku.Value).IsUnique();
+
+                    //options.WithOwner();
+                });
 
             builder.HasOne(model => model.Product)
                 .WithMany(product => product.Variants)

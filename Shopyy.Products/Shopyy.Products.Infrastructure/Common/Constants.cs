@@ -14,6 +14,9 @@
         public const string ProductAttributeTypes = "product_attribute_types";
         public const string CurrnecyCodes = "currency_codes";
         public const string Currencies = "currencies";
+        public const string Colors = "color_types";
+        public const string Brands = "brand_types";
+        public const string Sizes = "size_types";
     }
 
     public class Sequnces
@@ -44,6 +47,21 @@
             public const string Value = "value";
             public const string AttributeTypeId = "attribute_type_id";
             public const string VariantId = "variant_id";
+
+            public class Color
+            {
+                public const string TypeId = "color_type_id";
+            }
+
+            public class Brand
+            {
+                public const string TypeId = "brand_type_id";
+            }
+
+            public class Size
+            {
+                public const string TypeId = "size_type_id";
+            }
         }
 
         public class Currency

@@ -15,12 +15,7 @@ namespace Shopyy.Products.Infrastructure.Configurations
             builder.ToTable(Tables.ProductAttributes)
                 .Column(model => model.Id, CommonColumns.Id)
                 .Column(model => model.AttributeTypeId, Columns.ProductAttribute.AttributeTypeId)
-                .Column(model => model.Value, Columns.ProductAttribute.Value)
                 .Column(model => model.VariantId, Columns.ProductAttribute.VariantId);
-
-            builder.Property(model => model.Value)
-                .IsRequired()
-                .HasMaxLength(100);
 
             builder.HasOne(model => model.Variant)
                 .WithMany(variant => variant.Attributes)
@@ -34,6 +29,48 @@ namespace Shopyy.Products.Infrastructure.Configurations
                 .HasValue<ColorProductAttribute>(ProductAttributeTypeId.Color)
                 .HasValue<SizeProductAttribute>(ProductAttributeTypeId.Size)
                 .HasValue<BrandProductAttribute>(ProductAttributeTypeId.Brand);
+        }
+    }
+
+    public class ColorAttributeConfiguration : IEntityTypeConfiguration<ColorProductAttribute>
+    {
+        public void Configure(EntityTypeBuilder<ColorProductAttribute> builder)
+        {
+            builder.HasBaseType<ProductAttribute>();
+
+            builder.Column(model => model.ColorTypeId, Columns.ProductAttribute.Color.TypeId);
+
+            builder.HasOne(model => model.ColorType)
+                .WithMany(color => color.Attributes)
+                .HasForeignKey(model => model.ColorTypeId);
+        }
+    }
+
+    public class BrandAttributeConfiguration : IEntityTypeConfiguration<BrandProductAttribute>
+    {
+        public void Configure(EntityTypeBuilder<BrandProductAttribute> builder)
+        {
+            builder.HasBaseType<ProductAttribute>();
+
+            builder.Column(model => model.BrandTypeId, Columns.ProductAttribute.Brand.TypeId);
+
+            builder.HasOne(model => model.BrandType)
+                .WithMany(color => color.Attributes)
+                .HasForeignKey(model => model.BrandTypeId);
+        }
+    }
+
+    public class SizeAttributeConfiguration : IEntityTypeConfiguration<SizeProductAttribute>
+    {
+        public void Configure(EntityTypeBuilder<SizeProductAttribute> builder)
+        {
+            builder.HasBaseType<ProductAttribute>();
+
+            builder.Column(model => model.SizeTypeId, Columns.ProductAttribute.Size.TypeId);
+
+            builder.HasOne(model => model.SizeType)
+                .WithMany(color => color.Attributes)
+                .HasForeignKey(model => model.SizeTypeId);
         }
     }
 }

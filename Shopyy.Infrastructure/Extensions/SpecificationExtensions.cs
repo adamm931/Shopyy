@@ -36,7 +36,7 @@ namespace Shopyy.Infrastructure.Extensions
         public static async Task<long> LongCountAsync<TEntity>(this IQueryable<TEntity> query)
             where TEntity : class
         {
-            return await Task.Run(() => query.Count());
+            return await Task.Run(() => query.LongCount());
         }
 
         public static async Task<List<TEntity>> ToListAsync<TEntity>(this IQueryable<TEntity> query)

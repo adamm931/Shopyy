@@ -14,12 +14,18 @@ namespace Shopyy.Products.Application.Queries.Products.Details
 {
     public class GetProductDetails : IRequest<ProductDetailsResponse>
     {
+        #region Request
+
         public Guid Id { get; set; }
 
         public GetProductDetails(Guid id)
         {
             Id = id;
         }
+
+        #endregion
+
+        #region Handler
 
         public class Handler : IRequestHandler<GetProductDetails, ProductDetailsResponse>
         {
@@ -50,5 +56,7 @@ namespace Shopyy.Products.Application.Queries.Products.Details
                 return _mapper.Map<ProductDetailsResponse>(product, mappingParams);
             }
         }
+
+        #endregion
     }
 }

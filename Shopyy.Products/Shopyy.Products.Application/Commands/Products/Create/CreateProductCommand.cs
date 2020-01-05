@@ -12,7 +12,7 @@ namespace Shopyy.Products.Application.Commands.Products.Create
 {
     public class CreateProductCommand : IRequest<CreatedProductResponse>
     {
-        #region Model
+        #region Command
 
         public string Name { get; set; }
 

@@ -13,7 +13,13 @@ namespace Shopyy.Products.Application.Queries.Products.Filter
 {
     public class FilterProducts : IRequest<IEnumerable<ProductResponse>>
     {
+        #region Request
+
         public CurrnecyCodeTypeId Currency { get; set; } = CurrnecyCodeTypeId.EUR;
+
+        #endregion
+
+        #region Handler
 
         public class Handler : IRequestHandler<FilterProducts, IEnumerable<ProductResponse>>
         {
@@ -53,5 +59,7 @@ namespace Shopyy.Products.Application.Queries.Products.Filter
                 return _mapper.Map<IEnumerable<ProductResponse>>(products, mappingParams);
             }
         }
+
+        #endregion
     }
 }

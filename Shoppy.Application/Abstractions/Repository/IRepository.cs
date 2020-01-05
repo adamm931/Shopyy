@@ -1,6 +1,7 @@
 ﻿using Shoppy.Domain.Specification;
 using Shopyy.Domain;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shopyy.Application.Abstractions.Repository
@@ -16,7 +17,7 @@ namespace Shopyy.Application.Abstractions.Repository
 
         Task<long> CountAsync(ISpecification<TEntity> specification);
 
-        Task<IEnumerable<TEntity>> FilterAsync(ISpecification<TEntity> specification = null);
+        Task<IQueryable<TEntity>> QueryAsync(ISpecification<TEntity> specification = null);
 
         void Add(TEntity entity);
 

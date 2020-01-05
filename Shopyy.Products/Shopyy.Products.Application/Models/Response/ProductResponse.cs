@@ -6,7 +6,6 @@ namespace Shopyy.Products.Application.Models.Response
     public class ProductResponse
     {
         public Guid Id { get; set; }
-        public string Sku { get; set; }
 
         public string Name { get; set; }
 
@@ -14,10 +13,6 @@ namespace Shopyy.Products.Application.Models.Response
 
         public long SerialNumber { get; set; }
 
-        public IEnumerable<ProductAttributeResponse> Attributes { get; set; }
-
-        public ProductPriceResponse Price { get; set; }
-
-        public int StockCount { get; set; }
+        public IEnumerable<ProductVariantResponse> Variants { get; set; }
     }
 }

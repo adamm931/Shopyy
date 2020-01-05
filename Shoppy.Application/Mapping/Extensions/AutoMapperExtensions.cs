@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Shoppy.Application.Exceptions;
+using Shopyy.Common.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Shoppy.Application.Mapping.Extensions
@@ -49,9 +51,12 @@ namespace Shoppy.Application.Mapping.Extensions
 
         }
 
-        public static void SetItem(this IMappingOperationOptions options, string name, object value)
+        public static TDst Map<TDst>(this IMapper mapper, object source, IDictionary<string, object> paramters)
         {
-            options.Items[name] = value;
+            return mapper.Map<TDst>(source, opts =>
+            {
+                opts.Items.AddFrom(paramters);
+            });
         }
     }
 }

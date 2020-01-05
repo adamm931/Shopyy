@@ -36,34 +36,15 @@ namespace Shopyy.Infrastructure.Persistance
             UnitOfWork = unitOfWork;
         }
 
-        public async Task<TEntity> FindAsync(TKey id)
-        {
-            return (await Collection.FindAsync(entity => entity.Id.Equals(id))).SingleOrDefault();
-        }
+        public async Task<TEntity> FindAsync(TKey id) => (await Collection.FindAsync(entity => entity.Id.Equals(id))).SingleOrDefault();
 
-        public async Task<TEntity> SingleOrDefaultAsync(ISpecification<TEntity> specification)
-        {
-            return await specification.ApplyNoSql(Collection)
-                .SingleOrDefaultAsync();
-        }
+        public async Task<TEntity> SingleOrDefaultAsync(ISpecification<TEntity> specification) => await Collection.SingleOrDefaultAsync(specification);
 
-        public async Task<bool> AnyAsync(ISpecification<TEntity> specification)
-        {
-            return await specification.ApplyNoSql(Collection)
-                .AnyAsync();
-        }
+        public async Task<bool> AnyAsync(ISpecification<TEntity> specification) => await Collection.AnyAsync(specification);
 
-        public async Task<long> CountAsync(ISpecification<TEntity> specification)
-        {
-            return await specification.ApplyNoSql(Collection)
-                .LongCountAsync();
-        }
+        public async Task<long> CountAsync(ISpecification<TEntity> specification) => await Collection.LongCountAsync(specification);
 
-        public async Task<IEnumerable<TEntity>> FilterAsync(ISpecification<TEntity> specification)
-        {
-            return await specification.ApplyNoSql(Collection)
-                .ToListAsync();
-        }
+        public async Task<IQueryable<TEntity>> QueryAsync(ISpecification<TEntity> specification) => await Collection.QueryAsync(specification);
 
         public void Add(TEntity entity)
         {

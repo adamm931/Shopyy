@@ -3,6 +3,8 @@
     public class AutoMapperParams
     {
         public const string Currency = "Currency";
+
+        public const string Currencies = "Currencies";
     }
 
     public class AppSettings

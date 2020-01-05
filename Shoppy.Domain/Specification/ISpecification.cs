@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Shoppy.Domain.Specification
+namespace Shopyy.Domain.Specification
 {
     public interface ISpecification<TEntity> where TEntity : class
     {

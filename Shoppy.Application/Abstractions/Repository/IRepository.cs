@@ -1,5 +1,5 @@
-﻿using Shoppy.Domain.Specification;
-using Shopyy.Domain;
+﻿using Shopyy.Domain;
+using Shopyy.Domain.Specification;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

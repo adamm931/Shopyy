@@ -1,4 +1,4 @@
-﻿using Shoppy.Domain;
+﻿using Shopyy.Domain;
 using Shopyy.Products.Domain.Enumerations;
 using Shopyy.Products.Domain.Exceptions;
 using System.Collections.Generic;

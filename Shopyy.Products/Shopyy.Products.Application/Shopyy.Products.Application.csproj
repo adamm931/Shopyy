@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shoppy.Application\Shoppy.Application.csproj" />
+    <ProjectReference Include="..\..\Shoppy.Application\Shopyy.Application.csproj" />
     <ProjectReference Include="..\Shopyy.Products.Domain\Shopyy.Products.Domain.csproj" />
   </ItemGroup>
 

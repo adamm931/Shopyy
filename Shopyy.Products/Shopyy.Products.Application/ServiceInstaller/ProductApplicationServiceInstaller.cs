@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shopyy.Application.Mapping;
 using Shopyy.Common.Extensions;
 using Shopyy.Common.ServiceInstaller;
 using Shopyy.Products.Application.Common;
@@ -19,7 +20,9 @@ namespace Shopyy.Products.Application.ServiceInstaller
             services.BindOptions<SkuOptions>(configuration, AppSettings.SkuOptions);
 
             services.AddMediatR(typeof(ProductApplicationServiceInstaller).Assembly);
-            services.AddAutoMapper(typeof(ProductApplicationServiceInstaller).Assembly);
+            services.AddAutoMapper(
+                typeof(ProductApplicationServiceInstaller).Assembly,
+                typeof(CommonProfile).Assembly);
 
         }
     }

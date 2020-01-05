@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System;
 
-namespace Shoppy.Application.Mapping
+namespace Shopyy.Application.Mapping
 {
     public class CommonProfile : Profile
     {

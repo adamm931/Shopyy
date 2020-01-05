@@ -1,5 +1,5 @@
-﻿using Shoppy.Domain;
-using Shopyy.Common.Guard;
+﻿using Shopyy.Common.Guard;
+using Shopyy.Domain;
 
 namespace Shopyy.Products.Domain.ValueObjects
 {

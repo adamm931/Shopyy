@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shoppy.Domain.Specification;
+using Shopyy.Domain.Specification;
 using System.Linq;
 
 namespace Shopyy.Infrastructure.Specification

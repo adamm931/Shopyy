@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using Shoppy.Domain.Specification;
+using Shopyy.Domain.Specification;
 using Shopyy.Infrastructure.Specification;
 using System.Linq;
 using System.Threading.Tasks;

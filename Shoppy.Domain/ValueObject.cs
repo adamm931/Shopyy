@@ -1,4 +1,4 @@
-﻿namespace Shoppy.Domain
+﻿namespace Shopyy.Domain
 {
     public class ValueObject
     {

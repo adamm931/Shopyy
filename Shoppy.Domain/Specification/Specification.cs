@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Shoppy.Domain.Specification
+namespace Shopyy.Domain.Specification
 {
     public class Specification<TEntity> : ISpecification<TEntity> where TEntity : class
     {

@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using Shoppy.Domain.Specification;
+using Shopyy.Domain.Specification;
 using Shopyy.Application.Abstractions.Repository;
 using Shopyy.Domain;
 using Shopyy.Infrastructure.Extensions;

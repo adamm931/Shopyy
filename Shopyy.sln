@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{55
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{FA9D1B64-85F5-4268-ABF4-70495504892D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shoppy.Application", "Shoppy.Application\Shoppy.Application.csproj", "{D9905B2D-5E5B-466F-9B14-5CF4BC7BAF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopyy.Application", "Shoppy.Application\Shopyy.Application.csproj", "{D9905B2D-5E5B-466F-9B14-5CF4BC7BAF0B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopyy.Products.Api", "Shopyy.Products\Shopyy.Products.Api\Shopyy.Products.Api.csproj", "{766770B6-DA5A-488D-8C59-7C8C2CFF3F0A}"
 EndProject
@@ -31,11 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopyy.Products.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{203EAAC4-59EC-45BC-B0FC-BDB5C0737773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoppy.Domain", "Shoppy.Domain\Shoppy.Domain.csproj", "{F811F5E0-CF03-4C27-A9CC-5DD53F454ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopyy.Domain", "Shoppy.Domain\Shopyy.Domain.csproj", "{F811F5E0-CF03-4C27-A9CC-5DD53F454ABA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrasturcture", "Infrasturcture", "{F4F0FEB9-C91D-49FB-896A-90CE560C972A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopyy.Infrastructure", "Shopyy.Infrastructure\Shopyy.Infrastructure.csproj", "{147CD60D-E933-48A1-BEB5-581C7D9CB6F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopyy.Infrastructure", "Shopyy.Infrastructure\Shopyy.Infrastructure.csproj", "{147CD60D-E933-48A1-BEB5-581C7D9CB6F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

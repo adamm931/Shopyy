@@ -1,6 +1,7 @@
-﻿using Shoppy.Domain.Specification;
+﻿using Shopyy.Domain.Specification;
 using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.ValueObjects;
+using System;
 using System.Linq;
 
 namespace Shopyy.Products.Domain.Specifications
@@ -9,7 +10,7 @@ namespace Shopyy.Products.Domain.Specifications
     {
         public static ProductSpecification Create() => new ProductSpecification();
 
-        public ProductSpecification IncludeVariations()
+        public ProductSpecification IncludeVariants()
         {
             AddInclude(nameof(Product.Variants));
             AddInclude($"{nameof(Product.Variants)}.{nameof(ProductVariant.Attributes)}");
@@ -17,9 +18,16 @@ namespace Shopyy.Products.Domain.Specifications
             return this;
         }
 
+        public ProductSpecification ById(Guid id)
+        {
+            AddAnd(product => product.Id == id);
+
+            return this;
+        }
+
         public ProductSpecification ForSku(Sku sku)
         {
-            IncludeVariations();
+            IncludeVariants();
 
             AddAnd(product => product
                 .Variants

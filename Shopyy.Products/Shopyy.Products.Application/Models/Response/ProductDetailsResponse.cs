@@ -4,15 +4,13 @@ using System.Collections.Generic;
 
 namespace Shopyy.Products.Application.Models.Response
 {
-    public class ProductResponse
+    public class ProductDetailsResponse
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public long SerialNumber { get; set; }
 
         public IEnumerable<Variant> Variants { get; set; }
 
@@ -22,9 +20,14 @@ namespace Shopyy.Products.Application.Models.Response
 
             public int StockCount { get; set; }
 
-            public decimal Amount { get; set; }
+            public IEnumerable<Price> Prices { get; set; }
 
-            public string Currency { get; set; }
+            public class Price
+            {
+                public decimal Amount { get; set; }
+
+                public string Currency { get; set; }
+            }
 
             public IEnumerable<Attribute> Attributes { get; set; }
 

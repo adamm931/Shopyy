@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shoppy.Application\Shoppy.Application.csproj" />
+    <ProjectReference Include="..\..\Shoppy.Application\Shopyy.Application.csproj" />
     <ProjectReference Include="..\..\Shopyy.Common\Shopyy.Common.csproj" />
     <ProjectReference Include="..\..\Shopyy.Infrastructure\Shopyy.Infrastructure.csproj" />
     <ProjectReference Include="..\Shopyy.Products.Application\Shopyy.Products.Application.csproj" />

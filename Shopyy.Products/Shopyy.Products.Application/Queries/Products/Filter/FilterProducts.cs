@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Shoppy.Application.Mapping.Extensions;
+using Shopyy.Application.Mapping.Extensions;
 using Shopyy.Products.Application.Common;
 using Shopyy.Products.Application.Models.Response;
 using Shopyy.Products.Domain.Enumerations;
@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shopyy.Products.Application.Queries.GetProducts
+namespace Shopyy.Products.Application.Queries.Products.Filter
 {
-    public class GetProductsQuery : IRequest<IEnumerable<ProductResponse>>
+    public class FilterProducts : IRequest<IEnumerable<ProductResponse>>
     {
-        public CurrnecyCodeTypeId Currency { get; set; }
+        public CurrnecyCodeTypeId Currency { get; set; } = CurrnecyCodeTypeId.EUR;
 
-        public class Handler : IRequestHandler<GetProductsQuery, IEnumerable<ProductResponse>>
+        public class Handler : IRequestHandler<FilterProducts, IEnumerable<ProductResponse>>
         {
             private readonly IProductsAppContext _context;
             private readonly IMapper _mapper;
@@ -28,11 +28,11 @@ namespace Shopyy.Products.Application.Queries.GetProducts
                 _mapper = mapper;
             }
 
-            public async Task<IEnumerable<ProductResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<ProductResponse>> Handle(FilterProducts request, CancellationToken cancellationToken)
             {
                 // products
                 var productSpec = ProductSpecification.Create()
-                    .IncludeVariations();
+                    .IncludeVariants();
 
                 var products = await _context.Products
                     .QueryAsync(productSpec);

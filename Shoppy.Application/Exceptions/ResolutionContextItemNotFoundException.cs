@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shoppy.Application.Exceptions
+namespace Shopyy.Application.Exceptions
 {
     public class ResolutionContextItemNotFoundException : Exception
     {

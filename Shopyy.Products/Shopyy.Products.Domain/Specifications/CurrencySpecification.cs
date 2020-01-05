@@ -1,4 +1,4 @@
-﻿using Shoppy.Domain.Specification;
+﻿using Shopyy.Domain.Specification;
 using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Enumerations;
 

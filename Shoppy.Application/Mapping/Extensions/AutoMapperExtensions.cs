@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Shoppy.Application.Exceptions;
+using Shopyy.Application.Exceptions;
 using Shopyy.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Shoppy.Application.Mapping.Extensions
+namespace Shopyy.Application.Mapping.Extensions
 {
     public static class AutoMapperExtensions
     {

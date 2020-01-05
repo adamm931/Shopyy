@@ -2,6 +2,7 @@
 using Shopyy.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shopyy.Products.Domain.Entities
 {
@@ -39,9 +40,20 @@ namespace Shopyy.Products.Domain.Entities
             set { }
         }
 
-        public void AddVariant(ProductVariant variant)
+        public void AddVariantOrIncreaseStockCount(ProductVariant variant)
         {
-            _variants.Add(variant);
+            var variantBySku = _variants
+                .SingleOrDefault(varr => varr.Sku == variant.Sku);
+
+            if (variantBySku == null)
+            {
+                _variants.Add(variant);
+            }
+
+            else
+            {
+                variantBySku.IncreaseStockCount();
+            }
         }
 
         public Product AddVariants(IEnumerable<ProductVariant> variants)

@@ -29,8 +29,6 @@ namespace Shopyy.Products.Domain.Entities
         public ProductAttributeType AttributeType { get; private set; }
 
         public ProductAttributeTypeId AttributeTypeId { get; private set; }
-
-        public abstract string ShortName { get; }
     }
 
     public class ColorProductAttribute : ProductAttribute
@@ -46,8 +44,6 @@ namespace Shopyy.Products.Domain.Entities
         public ColorType ColorType { get; private set; }
 
         public ColorTypeId ColorTypeId { get; private set; }
-
-        public override string ShortName => ColorTypeId.ToShortName();
     }
 
     public class BrandProductAttribute : ProductAttribute
@@ -63,8 +59,6 @@ namespace Shopyy.Products.Domain.Entities
         public BrandType BrandType { get; private set; }
 
         public BrandTypeId BrandTypeId { get; private set; }
-
-        public override string ShortName => BrandTypeId.ToShortName();
     }
 
     public class SizeProductAttribute : ProductAttribute
@@ -80,7 +74,5 @@ namespace Shopyy.Products.Domain.Entities
         public SizeType SizeType { get; private set; }
 
         public SizeTypeId SizeTypeId { get; private set; }
-
-        public override string ShortName => SizeTypeId.ToShortName();
     }
 }

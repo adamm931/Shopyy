@@ -4,4 +4,9 @@
     {
         public const string Currency = "Currency";
     }
+
+    public class AppSettings
+    {
+        public const string SkuOptions = "SkuOptions";
+    }
 }

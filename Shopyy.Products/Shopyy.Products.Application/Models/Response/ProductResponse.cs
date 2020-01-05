@@ -6,6 +6,7 @@ namespace Shopyy.Products.Application.Models.Response
     public class ProductResponse
     {
         public Guid Id { get; set; }
+        public string Sku { get; set; }
 
         public string Name { get; set; }
 

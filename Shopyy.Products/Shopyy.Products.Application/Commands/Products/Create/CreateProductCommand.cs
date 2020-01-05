@@ -55,11 +55,10 @@ namespace Shopyy.Products.Application.Commands.Products.Create
                         };
                     }
 
-                    var sku = await _skuProvider.GenerateSku(product, variant);
-
+                    var sku = _skuProvider.GetSku(product, variant);
                     variant.SetSku(sku);
 
-                    product.AddVariant(variant);
+                    product.AddVariantOrIncreaseStockCount(variant);
                 }
 
                 _context.Products.Add(product);

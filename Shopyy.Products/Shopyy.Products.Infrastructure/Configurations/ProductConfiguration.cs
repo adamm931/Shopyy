@@ -25,6 +25,9 @@ namespace Shopyy.Products.Infrastructure.Configurations
             builder.HasIndex(model => model.SerialNumber)
                 .IsUnique();
 
+            builder.HasIndex(model => model.Name)
+                .IsUnique();
+
             builder.Property(model => model.Name)
                 .IsRequired()
                 .HasMaxLength(300);

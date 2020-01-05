@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shopyy.Common.Extensions;
 using Shopyy.Infrastructure.Common;
-using Shopyy.Infrastructure.Extensions;
 using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Options;
 using Shopyy.Infrastructure.Seed;

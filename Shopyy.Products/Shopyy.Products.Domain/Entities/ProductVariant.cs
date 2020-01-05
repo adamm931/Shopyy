@@ -5,6 +5,7 @@ using Shopyy.Products.Domain.Factories.Products;
 using Shopyy.Products.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shopyy.Products.Domain.Entities
 {
@@ -36,6 +37,12 @@ namespace Shopyy.Products.Domain.Entities
         public decimal Price { get; private set; }
 
         public int StockCount { get; private set; }
+
+        public ColorTypeId Color => GetAttribute<ColorProductAttribute>().ColorTypeId;
+
+        public BrandTypeId Brand => GetAttribute<BrandProductAttribute>().BrandTypeId;
+
+        public SizeTypeId Size => GetAttribute<SizeProductAttribute>().SizeTypeId;
 
         public IReadOnlyCollection<ProductAttribute> Attributes
         {
@@ -86,33 +93,11 @@ namespace Shopyy.Products.Domain.Entities
             return this;
         }
 
-        //public ProductVariant AddAttributes(IEnumerable<(ProductAttributeTypeId Type, Enum Value)> attributesData)
-        //{
-        //    foreach (var attributeData in attributesData)
-        //    {
-        //        var builder = attributeData.Type switch
-        //        {
-        //            ProductAttributeTypeId.Brand => ProductAttributeBuilder.New
-        //                .ForBrand()
-        //                .HasValue(attributeData.Value),
+        public void IncreaseStockCount() => StockCount += 1;
 
-        //            ProductAttributeTypeId.Color => ProductAttributeBuilder.New
-        //                .ForColor()
-        //                .HasValue(attributeData.Value),
-
-        //            ProductAttributeTypeId.Size => ProductAttributeBuilder.New
-        //                .ForSize()
-        //                .HasValue(attributeData.Value),
-
-        //            _ => null
-        //        };
-
-        //        var attribute = builder.Build();
-
-        //        _attributes.Add(attribute);
-        //    }
-
-        //    return this;
-        //}
+        private TAttribute GetAttribute<TAttribute>() where TAttribute : ProductAttribute
+            => Attributes
+                .OfType<TAttribute>()
+                .Single();
     }
 }

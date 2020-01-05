@@ -19,6 +19,8 @@ namespace Shopyy.Products.Domain.Specifications
 
         public ProductSpecification ForSku(Sku sku)
         {
+            IncludeVariations();
+
             AddAnd(product => product
                 .Variants
                 .Any(variation => variation.Sku.Value == sku.Value));

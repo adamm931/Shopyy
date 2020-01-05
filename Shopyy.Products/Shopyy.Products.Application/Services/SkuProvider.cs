@@ -1,42 +1,34 @@
-﻿using Shopyy.Products.Domain.Entities;
+﻿using Microsoft.Extensions.Options;
+using Shopyy.Products.Application.Options;
+using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Interfacaes;
-using Shopyy.Products.Domain.Specifications;
 using Shopyy.Products.Domain.ValueObjects;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shopyy.Products.Application.Services
 {
     public class SkuProvider : ISkuProvider
     {
-        private const int NameOffset = 3;
+        private readonly IOptions<SkuOptions> _skuOptions;
 
-        private readonly IProductsAppContext _context;
-
-        public SkuProvider(IProductsAppContext context)
+        public SkuProvider(IOptions<SkuOptions> skuOptions)
         {
-            _context = context;
+            _skuOptions = skuOptions;
         }
 
-        public async Task<Sku> GenerateSku(Product product, ProductVariant productVariant)
+        public Sku GetSku(Product product, ProductVariant productVariant)
         {
-            Sku sku = product.Name.Substring(0, NameOffset);
+            var schemaOptions = _skuOptions.Value;
 
-            var generatedSku = productVariant.Attributes
-                .Aggregate(sku, (current, attribute) => current.AppendSegment(attribute.ShortName));
+            var schema = SkuSchema
+                .Parse(schemaOptions.Schema)
+                .SetBrand(productVariant.Brand)
+                .SetSize(productVariant.Size)
+                .SetColor(productVariant.Color)
+                .SetName(product.Name
+                    .Substring(0, schemaOptions.NameOffset)
+                    .Trim());
 
-            var count = await CountAsync(generatedSku);
-
-            return count == 0 ? generatedSku : generatedSku.AppendSegment(count.ToString());
-        }
-
-        private async Task<long> CountAsync(Sku sku)
-        {
-            var skuSpec = ProductSpecification.Create()
-                .ForSku(sku)
-                .IncludeVariations();
-
-            return await _context.Products.CountAsync(skuSpec);
+            return schema.Sku;
         }
     }
 }

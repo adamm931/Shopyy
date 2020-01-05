@@ -10,7 +10,20 @@ namespace Shopyy.Products.Application.Mapping.Profiles
         public ProductAttributeProfile()
         {
             CreateMap<ProductAttribute, ProductAttributeResponse>()
-                .For(src => src.AttributeTypeId, dst => dst.Name);
+                .For(src => src.AttributeTypeId, dst => dst.Name)
+                .Include<ColorProductAttribute, ProductAttributeResponse>()
+                .Include<BrandProductAttribute, ProductAttributeResponse>()
+                .Include<SizeProductAttribute, ProductAttributeResponse>()
+                ;
+
+            CreateMap<ColorProductAttribute, ProductAttributeResponse>()
+                .For(src => src.ColorTypeId, dst => dst.Value);
+
+            CreateMap<BrandProductAttribute, ProductAttributeResponse>()
+                .For(src => src.BrandTypeId, dst => dst.Value);
+
+            CreateMap<SizeProductAttribute, ProductAttributeResponse>()
+                .For(src => src.SizeTypeId, dst => dst.Value);
         }
     }
 }

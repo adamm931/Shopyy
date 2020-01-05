@@ -13,15 +13,17 @@ namespace Shopyy.Infrastructure.Seed
             var p1 = new Product("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI");
 
             var v11 = new ProductVariant(1900, 255)
+                        .AddBrand(BrandTypeId.Microsoft)
                         .AddColor(ColorTypeId.Red)
                         .AddSize(SizeTypeId.Medium);
 
             var v12 = new ProductVariant(1900, 255)
+                        .AddBrand(BrandTypeId.Genius)
                         .AddColor(ColorTypeId.Green)
                         .AddSize(SizeTypeId.ExtraLarge);
 
-            v11.SetSku(skuProvider.GenerateSku(p1, v11).Result);
-            v12.SetSku(skuProvider.GenerateSku(p1, v12).Result);
+            v11.SetSku(skuProvider.GetSku(p1, v11));
+            v12.SetSku(skuProvider.GetSku(p1, v12));
 
             p1.AddVariants(new[] { v11, v12 });
 
@@ -30,14 +32,16 @@ namespace Shopyy.Infrastructure.Seed
 
             var v21 = new ProductVariant(1900, 255)
                         .AddColor(ColorTypeId.Green)
+                        .AddBrand(BrandTypeId.Microsoft)
                         .AddSize(SizeTypeId.ExtraLarge);
 
             var v22 = new ProductVariant(1900, 255)
+                        .AddBrand(BrandTypeId.A4Tech)
                         .AddColor(ColorTypeId.White)
                         .AddSize(SizeTypeId.ExtraLarge);
 
-            v21.SetSku(skuProvider.GenerateSku(p2, v21).Result);
-            v22.SetSku(skuProvider.GenerateSku(p2, v22).Result);
+            v21.SetSku(skuProvider.GetSku(p2, v21));
+            v22.SetSku(skuProvider.GetSku(p2, v22));
 
             p2.AddVariants(new[] { v21, v22 });
 
@@ -54,8 +58,8 @@ namespace Shopyy.Infrastructure.Seed
                         .AddSize(SizeTypeId.ExtraLarge)
                         .AddBrand(BrandTypeId.Logitech);
 
-            v31.SetSku(skuProvider.GenerateSku(p3, v31).Result);
-            v32.SetSku(skuProvider.GenerateSku(p3, v32).Result);
+            v31.SetSku(skuProvider.GetSku(p3, v31));
+            v32.SetSku(skuProvider.GetSku(p3, v32));
 
             p3.AddVariants(new[] { v31, v32 });
 
@@ -64,14 +68,16 @@ namespace Shopyy.Infrastructure.Seed
 
             var v41 = new ProductVariant(1900, 255)
                         .AddColor(ColorTypeId.Red)
+                        .AddBrand(BrandTypeId.A4Tech)
                         .AddSize(SizeTypeId.Medium);
 
             var v42 = new ProductVariant(1900, 255)
+                        .AddBrand(BrandTypeId.Microsoft)
                         .AddColor(ColorTypeId.Black)
                         .AddSize(SizeTypeId.Small);
 
-            v41.SetSku(skuProvider.GenerateSku(p4, v41).Result);
-            v42.SetSku(skuProvider.GenerateSku(p4, v42).Result);
+            v41.SetSku(skuProvider.GetSku(p4, v41));
+            v42.SetSku(skuProvider.GetSku(p4, v42));
 
             p4.AddVariants(new[] { v41, v42 });
 
@@ -80,6 +86,7 @@ namespace Shopyy.Infrastructure.Seed
 
             var v51 = new ProductVariant(2020, 115)
                         .AddColor(ColorTypeId.White)
+                        .AddBrand(BrandTypeId.Logitech)
                         .AddSize(SizeTypeId.Large);
 
             var v52 = new ProductVariant(2400, 135)
@@ -87,8 +94,8 @@ namespace Shopyy.Infrastructure.Seed
                         .AddBrand(BrandTypeId.Genius)
                         .AddSize(SizeTypeId.Medium);
 
-            v51.SetSku(skuProvider.GenerateSku(p5, v51).Result);
-            v52.SetSku(skuProvider.GenerateSku(p5, v52).Result);
+            v51.SetSku(skuProvider.GetSku(p5, v51));
+            v52.SetSku(skuProvider.GetSku(p5, v52));
 
             p5.AddVariants(new[] { v51, v52 });
 

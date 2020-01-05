@@ -15,6 +15,7 @@ namespace Shopyy.Products.Application.Mapping.Profiles
                 .For(src => src.Product.Name, dst => dst.Name)
                 .For(src => src.Product.Description, dst => dst.Description)
                 .For(src => src.Product.SerialNumber, dst => dst.SerialNumber)
+                .For(src => src.Sku, dst => dst.Sku)
                 .Ignore(dst => dst.Price)
                 .AfterMap(MapPriceWithCurrency);
         }

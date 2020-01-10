@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
+using Shopyy.Application.Abstractions.Repository;
 using Shopyy.Infrastructure.Interfaces;
 using Shopyy.Infrastructure.Options;
-using Shopyy.Products.Application;
+using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Interfacaes;
 using System.Threading.Tasks;
 
@@ -9,25 +10,31 @@ namespace Shopyy.Infrastructure.Seed
 {
     public class ProductsSeeder : ISeeder
     {
-        private readonly IProductsAppContext _productsContext;
         private readonly IDatabaseCreator _databaseCreator;
         private readonly IEnumerationsSeeder _enumerationsSeeder;
         private readonly IOptions<SeedOptions> _seedOptions;
         private readonly ISkuProvider _skuProvider;
 
+        private readonly IRepository<Category> _categories;
+        private readonly IRepository<Currency> _currencies;
+
         public ProductsSeeder(
-            IProductsAppContext productsContext,
             IDatabaseCreator databaseInitializer,
             IEnumerationsSeeder enumerationsSeeder,
             IOptions<SeedOptions> seedOptions,
-            ISkuProvider skuProvider
+            ISkuProvider skuProvider,
+
+            IRepository<Category> categories,
+            IRepository<Currency> currencies
             )
         {
-            _productsContext = productsContext;
             _databaseCreator = databaseInitializer;
             _enumerationsSeeder = enumerationsSeeder;
             _seedOptions = seedOptions;
             _skuProvider = skuProvider;
+
+            _categories = categories;
+            _currencies = currencies;
         }
 
         public async Task SeedAsync()
@@ -40,12 +47,14 @@ namespace Shopyy.Infrastructure.Seed
                 return;
             }
 
-            _productsContext.Products.AddRange(SeederData.GetProducts(_skuProvider));
-            _productsContext.Currencies.AddRange(SeederData.GetCurrencies());
+            var unitOfWork = _categories.UnitOfWork;
+
+            _categories.AddRange(SeederData.GetCategoriesWithProducts(_skuProvider));
+            _currencies.AddRange(SeederData.GetCurrencies());
 
             _enumerationsSeeder.SeedEnumerations();
 
-            await _productsContext.Products.UnitOfWork.SaveAsync();
+            await unitOfWork.SaveAsync();
         }
     }
 }

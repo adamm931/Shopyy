@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
+using Shopyy.Application.Abstractions.Repository;
 using Shopyy.Application.Mapping.Extensions;
 using Shopyy.Products.Application.Common;
 using Shopyy.Products.Application.Models.Response;
+using Shopyy.Products.Domain.Entities;
 using Shopyy.Products.Domain.Enumerations;
 using Shopyy.Products.Domain.Specifications;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,6 +19,8 @@ namespace Shopyy.Products.Application.Queries.Products.Filter
     {
         #region Request
 
+        public Guid CategoryId { get; set; }
+
         public CurrnecyCodeTypeId Currency { get; set; } = CurrnecyCodeTypeId.EUR;
 
         #endregion
@@ -23,32 +29,37 @@ namespace Shopyy.Products.Application.Queries.Products.Filter
 
         public class Handler : IRequestHandler<FilterProducts, IEnumerable<ProductResponse>>
         {
-            private readonly IProductsAppContext _context;
+            private readonly IRepository<Category> _categories;
+            private readonly IRepository<Currency> _currencies;
+
             private readonly IMapper _mapper;
 
             public Handler(
-                IProductsAppContext context,
+                IRepository<Category> categories,
+                IRepository<Currency> currencies,
                 IMapper mapper)
             {
-                _context = context;
+                _categories = categories;
+                _currencies = currencies;
                 _mapper = mapper;
             }
 
             public async Task<IEnumerable<ProductResponse>> Handle(FilterProducts request, CancellationToken cancellationToken)
             {
                 // products
-                var productSpec = ProductSpecification.Create()
-                    .IncludeVariants();
+                var categorySpec = CategorySpecification.Create()
+                    .IncludeProducts();
 
-                var products = await _context.Products
-                    .QueryAsync(productSpec);
+                var products = (await _categories
+                    .QueryAsync(categorySpec))
+                    .SelectMany(category => category.Products);
 
                 // currencies
                 var currencySpec = CurrencySpecification.Create()
                     .ForCurrencyCodeType(request.Currency)
                     .IncludeCurrencyCode();
 
-                var currency = await _context.Currencies
+                var currency = await _currencies
                     .SingleOrDefaultAsync(currencySpec);
 
                 var mappingParams = new Dictionary<string, object>

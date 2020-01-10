@@ -6,8 +6,8 @@ namespace Shopyy.Products.Application
 {
     public interface IProductsAppContext
     {
-        IRepository<Guid, Product> Products { get; }
+        IRepository<Category> Categories { get; }
 
-        IRepository<Guid, Currency> Currencies { get; }
+        IRepository<Currency> Currencies { get; }
     }
 }

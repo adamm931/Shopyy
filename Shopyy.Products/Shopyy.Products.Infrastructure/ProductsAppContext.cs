@@ -9,24 +9,16 @@ namespace Shopyy.Products.Infrastructure
     public class ProductsAppContext : IProductsAppContext
     {
         public ProductsAppContext(
-            IRepository<Guid, Product> products,
-            IRepository<CurrnecyCodeTypeId, CurrencyCode> currencyCodes,
-            IRepository<Guid, Currency> currencies,
-            IRepository<ProductAttributeTypeId, ProductAttributeType> productAttributeTypes
+            IRepository<Currency> currencies,
+            IRepository<Category> categories
             )
         {
-            Products = products;
-            CurrencyCodes = currencyCodes;
             Currencies = currencies;
-            ProductAttributeTypes = productAttributeTypes;
+            Categories = categories;
         }
 
-        public IRepository<Guid, Product> Products { get; }
+        public IRepository<Category> Categories { get; }
 
-        public IRepository<CurrnecyCodeTypeId, CurrencyCode> CurrencyCodes { get; }
-
-        public IRepository<Guid, Currency> Currencies { get; }
-
-        public IRepository<ProductAttributeTypeId, ProductAttributeType> ProductAttributeTypes { get; }
+        public IRepository<Currency> Currencies { get; }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Shopyy.Products.Domain.Entities
 {
-    public class Product : IEntity<Guid>
+    public class Product : IEntity
     {
         private List<ProductVariant> _variants;
 
@@ -33,6 +33,17 @@ namespace Shopyy.Products.Domain.Entities
         public string Name { get; private set; }
 
         public string Description { get; private set; }
+
+        public Guid CategoryId { get; private set; }
+
+        public Category Category { get; private set; }
+
+        public void SetCategory(Guid categoryId)
+        {
+            Ensure.NotEmpty(categoryId, nameof(categoryId));
+
+            CategoryId = categoryId;
+        }
 
         public IReadOnlyCollection<ProductVariant> Variants
         {

@@ -1,5 +1,6 @@
 ﻿using Shopyy.Domain;
 using Shopyy.Domain.Specification;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,5 +29,10 @@ namespace Shopyy.Application.Abstractions.Repository
         void Delete(TKey id);
 
         IUnitOfWork UnitOfWork { get; }
+    }
+
+    public interface IRepository<TEntity> : IRepository<Guid, TEntity>
+        where TEntity : class, IEntity
+    {
     }
 }

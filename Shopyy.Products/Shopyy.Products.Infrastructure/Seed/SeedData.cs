@@ -7,10 +7,13 @@ namespace Shopyy.Infrastructure.Seed
 {
     public class SeederData
     {
-        public static IEnumerable<Product> GetProducts(ISkuProvider skuProvider)
+        public static IEnumerable<Category> GetCategoriesWithProducts(ISkuProvider skuProvider)
         {
+            // cateogry
+            var category = new Category("Gaming", "The collection of nice gaming mouses");
+
             // 1
-            var p1 = new Product("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI");
+            var p1 = category.AddProduct("A4 Tech Mouse 1", "Nice gaming mouse with 3200 DPI");
 
             var v11 = new ProductVariant(1900, 255)
                         .AddBrand(BrandTypeId.Microsoft)
@@ -28,7 +31,7 @@ namespace Shopyy.Infrastructure.Seed
             p1.AddVariants(new[] { v11, v12 });
 
             // 2
-            var p2 = new Product("A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI");
+            var p2 = category.AddProduct("A4 Tech Mouse 2", "Nice gaming mouse with 4200 DPI");
 
             var v21 = new ProductVariant(1900, 255)
                         .AddColor(ColorTypeId.Green)
@@ -46,7 +49,7 @@ namespace Shopyy.Infrastructure.Seed
             p2.AddVariants(new[] { v21, v22 });
 
             // 3
-            var p3 = new Product("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI");
+            var p3 = category.AddProduct("A4 Tech Mouse 3", "Nice gaming mouse with 5200 DPI");
 
             var v31 = new ProductVariant(1900, 255)
                         .AddColor(ColorTypeId.Green)
@@ -64,7 +67,7 @@ namespace Shopyy.Infrastructure.Seed
             p3.AddVariants(new[] { v31, v32 });
 
             //4
-            var p4 = new Product("A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI");
+            var p4 = category.AddProduct("A4 Tech Mouse 4", "Nice gaming mouse with 6200 DPI");
 
             var v41 = new ProductVariant(1900, 255)
                         .AddColor(ColorTypeId.Red)
@@ -82,7 +85,7 @@ namespace Shopyy.Infrastructure.Seed
             p4.AddVariants(new[] { v41, v42 });
 
             // 5
-            var p5 = new Product("A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI");
+            var p5 = category.AddProduct("A4 Tech Mouse 5", "Nice gaming mouse with 7200 DPI");
 
             var v51 = new ProductVariant(2020, 115)
                         .AddColor(ColorTypeId.White)
@@ -99,7 +102,7 @@ namespace Shopyy.Infrastructure.Seed
 
             p5.AddVariants(new[] { v51, v52 });
 
-            return new[] { p1, p2, p3, p4, p5 };
+            return new[] { category };
         }
 
         public static IEnumerable<Currency> GetCurrencies()

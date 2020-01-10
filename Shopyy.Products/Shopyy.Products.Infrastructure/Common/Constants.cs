@@ -9,6 +9,7 @@
     public class Tables
     {
         public const string Products = "products";
+        public const string Categories = "categories";
         public const string ProductVariants = "product_variants";
         public const string ProductAttributes = "product_attributes";
         public const string ProductAttributeTypes = "product_attribute_types";
@@ -27,11 +28,17 @@
 
     public class Columns
     {
+        public class Category
+        {
+            public const string Description = "description";
+        }
+
         public class Product
         {
             public const string SerialNumber = "serial_number";
             public const string ArticleNumber = "article_number";
             public const string Description = "description";
+            public const string CategoryId = "category_id";
         }
 
         public class ProductVariant

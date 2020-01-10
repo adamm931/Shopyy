@@ -14,6 +14,7 @@ namespace Shopyy.Products.Infrastructure.Configurations
         {
             builder.ToTable(Tables.Products)
                 .Column(model => model.Id, CommonColumns.Id)
+                .Column(model => model.Id, Columns.Product.CategoryId)
                 .Column(model => model.Name, CommonColumns.Name)
                 .Column(model => model.SerialNumber, Columns.Product.SerialNumber)
                 .Column(model => model.Description, Columns.Product.Description);

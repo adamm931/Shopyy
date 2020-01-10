@@ -4,6 +4,7 @@
     {
         public const string Id = "id";
         public const string Name = "name";
+        public const string Description = "description";
     }
 
     public class CommonAppSettings

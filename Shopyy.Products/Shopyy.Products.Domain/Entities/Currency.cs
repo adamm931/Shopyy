@@ -5,7 +5,7 @@ using System;
 
 namespace Shopyy.Products.Domain.Entities
 {
-    public class Currency : IEntity<Guid>
+    public class Currency : IEntity
     {
         public Guid Id { get; private set; }
 

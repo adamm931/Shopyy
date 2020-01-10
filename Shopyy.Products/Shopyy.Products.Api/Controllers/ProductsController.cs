@@ -25,8 +25,8 @@ namespace Shopyy.Web.Controllers
             => Ok(await _mediator.Send(command));
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> Details(Guid id)
-            => Ok(await _mediator.Send(new GetProductDetails(id)));
+        [Route("{categoryId}/{productId}")]
+        public async Task<IActionResult> Details(Guid categoryId, Guid productId)
+            => Ok(await _mediator.Send(new GetProductDetails(categoryId, productId)));
     }
 }
